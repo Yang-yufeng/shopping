@@ -1,0 +1,25 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: order-service
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    addresses: 127.0.0.1:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 10000
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 3
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.yufeng.common.entity

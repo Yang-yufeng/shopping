@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufeng.common.mapper.OrderMapper">
+
+    <resultMap type="com.yufeng.common.entity.Order" id="order">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="VARCHAR" />
+        <result column="goodsId" property="goodsId" jdbcType="VARCHAR" />
+        <result column="number" property="number" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id = "getOrder"  resultType = "com.yufeng.common.entity.Order"  >
+        select * from shopping_order where  id = #{id} for update
+    </select>
+
+    <insert id = "saveOrder" parameterType="com.yufeng.common.entity.Order">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into shopping_order(id,userId,goodsId,number,goodsNum) values (#{id},#{userId},#{goodsId},#{number},#{goodsNum})
+    </insert>
+
+</mapper>

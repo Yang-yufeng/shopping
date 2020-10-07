@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufeng.common.mapper.GoodsMapper">
+
+    <resultMap type="com.yufeng.common.entity.Goods" id="goods">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="store" property="store" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id = "getGoods"  resultType = "com.yufeng.common.entity.Goods"  >
+        select * from shopping_goods where  id = #{id} for update
+    </select>
+
+    <update id = "updateGoods" parameterType="com.yufeng.common.entity.Goods">
+        update  shopping_goods set name = #{name} ,store = #{store}  where  id = #{id}
+
+    </update>
+
+    <insert id = "saveGoods" parameterType="com.yufeng.common.entity.Goods">
+        insert into shopping_goods(id,name,store) values (#{id},#{name},#{store})
+    </insert>
+
+
+
+</mapper>
